@@ -37,6 +37,57 @@ Board.prototype.manhattan = function(){
     }
     return this._manhattan;
 }
+/**
+ * Basically if you can solve a "twin" board, you proven that there
+ * exists no solution to the original board
+ * This function creates a twin board by making an illegal swap
+ * An illegal swap means not using the free SPACE tile to swap
+ * NOTE: this looks like a n^2 function but practically it is constant time
+ */
+Board.prototype.twin = function(){
+    var j = 0;
+    for (var i = 0; i < this.dimension; i++) {
+        //Make sure that no tile to be swapped is free space
+        if (this._tiles[i][j] !== 0 && this._tiles[i][j + 1] !== 0) {
+            return new Board(this.swap(i, j, i, j + 1));
+        }
+    }
+    throw "No plausible twin swaps found";
+}
+/**
+ * This function returns the neighboring boards
+ * Boards that are one LEGAL move away from the original
+ */
+Board.prototype.neighbors = function(){
+    //Find space coordinates
+    var spaceLoc = this.spaceCoords();
+    var r = spaceLoc.i;
+    var c = spaceLoc.j;
+    var neigh = [];
+    
+    //All Cases
+    if (r > 0) {neigh.push(new Board(this.swap(r, c, r - 1, c)));}
+    if (c > 0) {neigh.push(new Board(this.swap(r, c, r, c - 1)));}
+    if (r < this.dimension - 1) {neigh.push(new Board(this.swap(r, c, r + 1, c)));}
+    if (c < this.dimension - 1) {neigh.push(new Board(this.swap(r, c, r, c + 1)));}
+
+    return neigh;
+}
+Board.prototype.equals = function(anotherBoard){
+    if(anotherBoard == this){return true;}//Same object instance
+    if(anotherBoard === null){return false;}
+    //Check for correct object type
+    if((anotherBoard.constructor.name !== this.constructor.name)){return false;}
+    
+    if(this.dimension !== anotherBoard.dimension){return false;}
+    //Finally check each individual tile for equality
+    for (var i = 0; i < this.dimension; i++) {
+        for (var j = 0; j < this.dimension; j++) {
+            if(this._tiles[i][j] !== anotherBoard._tiles[i][j]){ return false;}
+        }
+    }
+    return true;
+}
 Board.prototype.valueOf = function(){
     return this.manhattan();
 }
@@ -74,6 +125,20 @@ Board.prototype.swap = function(i, j, a, b){
    swapTiles[i][j] = swapTiles[a][b];
    swapTiles[a][b] = tempTile;
    return swapTiles;
+}
+/**
+ * Returns an object that contains the coordinates of the
+ * free SPACE tile
+ */
+Board.prototype.spaceCoords = function(){
+    for (var i = 0; i < this.dimension; i++) {
+        for (var j = 0; j < this.dimension; j++) {
+            if (this._tiles[i][j] === 0) {
+                return {i: i, j: j};
+            }
+        }
+    }
+    throw "No SPACE tile found";
 }
 //DEBUGGING METHODS
 Board.prototype.toString = function (){
