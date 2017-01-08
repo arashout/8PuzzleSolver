@@ -34,7 +34,7 @@ MinPQ.prototype.delMin = function(){
 MinPQ.prototype.swim = function(k){
     var j; //j is parent index
     while(k > 1){
-        j = (k/2>>0);//Integer division to get parent index
+        j = Math.floor(k/2); //Integer division to get parent index
         if(this.more(j,k)){
             this.exchange(j, k);
             k = j; //Now the current item is at parent index

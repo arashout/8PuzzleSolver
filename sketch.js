@@ -1,13 +1,18 @@
 function setup() {
     var pq = new MinPQ();
-    pq.insert(5);
-    pq.insert(7);
-    pq.insert(1);
-    pq.insert(6);
-    pq.insert(2);
-    alert(pq);
-    console.log(pq.delMin());
-    alert(pq);
+    var blocks = [
+        [1, 2, 8],
+        [4, 5, 6],
+        [7, 3, 0]
+        ];
+    var tiles = [
+        [1, 2, 3],
+        [4, 5, 6],
+        [7, 8, 0]
+        ];
+    var b1 = new Board(blocks);
+    var b2 = new Board(tiles);
+    console.log(b1.valueOf());
 }
 
 function draw() {
