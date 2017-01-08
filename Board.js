@@ -40,11 +40,40 @@ Board.prototype.manhattan = function(){
 Board.prototype.valueOf = function(){
     return this.manhattan();
 }
+Board.prototype.isGoal = function(){
+    for(var i = 0; i < this.dimension; i++){
+        for(var j = 0; j < this.dimension; j++){
+            if(this._tiles[i][j] !== this.goalValueAt(i,j)){return false;}
+        }
+    }
+    return true;
+}
 //HELPER METHODS
 Board.prototype.goalValueAt = function(i, j){
     if(i === this.dimension - 1 && j === this.dimension - 1){ return 0;}
     //Formula for the goal value
     return 1 + i * this.dimension + j;
+}
+/**
+ * This function creates a copy of the array 
+ * for when new board objects need to be created
+ */
+Board.prototype.copyMatrix = function(currentArray){
+    var newArray = [];
+    
+    for (var i = 0; i < currentArray.length; i++)
+        newArray[i] = currentArray[i].slice();
+    return newArray;
+}
+/**
+ * Function to swap tiles given there x and y coordinates
+ */
+Board.prototype.swap = function(i, j, a, b){
+   var swapTiles = this.copyMatrix(this._tiles);
+   var tempTile = swapTiles[i][j];
+   swapTiles[i][j] = swapTiles[a][b];
+   swapTiles[a][b] = tempTile;
+   return swapTiles;
 }
 //DEBUGGING METHODS
 Board.prototype.toString = function (){
