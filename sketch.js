@@ -2,14 +2,13 @@ function setup() {
     var pq = new MinPQ();
     var blocks = [
         [1, 2, 3],
-        [4, 0, 6],
-        [7, 8, 5]
+        [4, 5, 6],
+        [7, 8, 0]
         ];
     var b1 = new Board(blocks);
-    var neighbors = b1.neighbors();
-    for(var i = 0; i < neighbors.length; i++){
-        alert(neighbors[i]);
-    }
+    console.log(b1.valueOf());
+    var n1 = new Node(b1, 5, null);
+    console.log(n1.valueOf());
 }
 
 function draw() {
