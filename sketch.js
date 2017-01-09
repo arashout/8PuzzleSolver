@@ -1,14 +1,16 @@
 function setup() {
     var pq = new MinPQ();
     var blocks = [
-        [1, 2, 3],
-        [4, 5, 6],
-        [7, 8, 0]
+        [6, 1, 0],
+        [5, 2, 4],
+        [7, 3, 8]
         ];
     var b1 = new Board(blocks);
-    console.log(b1.valueOf());
-    var n1 = new Node(b1, 5, null);
-    console.log(n1.valueOf());
+    var s = new Solver(b1);
+    var sol = s.solution();
+    for(var i = 0; i < sol.length; i++){
+        alert(sol[i]);
+    }
 }
 
 function draw() {
