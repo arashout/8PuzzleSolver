@@ -1,0 +1,13 @@
+.tile{
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+
+    margin-left: 1vw;
+}
+#spaceTile{
+    border: none;
+    opacity: 0;
+}
+.board{
+    margin-top: 2vw;
+}

@@ -152,3 +152,25 @@ Board.prototype.toString = function (){
     }
     return stringRep;
 }
+Board.prototype.drawHTML = function(boardDivId){
+    for(var i = 0; i < this.dimension; i++){
+        var divRow = document.createElement("Div");
+        divRow.className = "row";
+        divRow.id = "row" + i.toString();
+        divRow.align = "center";
+        for(var j = 0; j < this.dimension; j++){
+            var tile = document.createElement("Button");
+            tile.className = "tile";
+            //If it is a space tile
+            if(this._tiles[i][j] === 0){
+                tile.id = "spaceTile";
+                tile.innerHTML = this._tiles[i][j];
+            }
+            else{
+                tile.innerHTML = this._tiles[i][j];
+            }
+            divRow.appendChild(tile);
+        }
+        document.getElementById(boardDivId).appendChild(divRow);
+    }
+}

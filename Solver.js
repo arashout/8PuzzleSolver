@@ -84,7 +84,7 @@ Solver.prototype.solution = function(){
             curNode = curNode.prev;
         }
         //Reverse solution - so it is START to FINISH
-        return arr.reverse();
+        return arr;
     }
     return null;
 }
