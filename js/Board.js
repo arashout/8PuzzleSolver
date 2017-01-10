@@ -168,7 +168,7 @@ Board.prototype.arrangeBlocks = function(){
     for(var i = 0; i < this.dimension; i++){
         for(var j = 0; j < this.dimension; j++){
             tileNum = parseInt(this._tiles[i][j]);
-            tile = document.getElementById(tileNum);
+            tile = document.getElementById("tile" + tileNum);
             key = i.toString() + j.toString();
             prevClass = tile.classList.item(1);
             if(prevClass !== null){

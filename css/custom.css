@@ -1,3 +1,4 @@
+
 .tile{
     border-color: black;
     border-style: solid;
@@ -18,12 +19,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-
 }
 
-#spaceTile{
+#tile0{
     border: none;
-    opacity: 1;
+    opacity: 0;
 
 }
 #puzzleBoard{
