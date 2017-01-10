@@ -152,25 +152,29 @@ Board.prototype.toString = function (){
     }
     return stringRep;
 }
-Board.prototype.drawHTML = function(boardDivId){
+Board.prototype.arrangeBlocks = function(){   
+    var posDict = {
+        "00":"pos0",
+        "01":"pos1",
+        "02":"pos2",
+        "10":"pos3",
+        "11":"pos4",
+        "12":"pos5",
+        "20":"pos6",
+        "21":"pos7",
+        "22":"pos8"
+    }
+    var tile, tileNum, key, prevClass;
     for(var i = 0; i < this.dimension; i++){
-        var divRow = document.createElement("Div");
-        divRow.className = "row";
-        divRow.id = "row" + i.toString();
-        divRow.align = "center";
         for(var j = 0; j < this.dimension; j++){
-            var tile = document.createElement("Button");
-            tile.className = "tile";
-            //If it is a space tile
-            if(this._tiles[i][j] === 0){
-                tile.id = "spaceTile";
-                tile.innerHTML = this._tiles[i][j];
+            tileNum = parseInt(this._tiles[i][j]);
+            tile = document.getElementById(tileNum);
+            key = i.toString() + j.toString();
+            prevClass = tile.classList.item(1);
+            if(prevClass !== null){
+                tile.classList.remove(prevClass);
             }
-            else{
-                tile.innerHTML = this._tiles[i][j];
-            }
-            divRow.appendChild(tile);
+            tile.classList.add(posDict[key]);
         }
-        document.getElementById(boardDivId).appendChild(divRow);
     }
 }

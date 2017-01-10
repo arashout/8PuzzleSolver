@@ -1,21 +1,26 @@
 window.onload = function() {
-    document.getElementById("spaceTile").onclick = function goUp(){
-        var spaceTile = document.getElementById("spaceTile");
-        var computedStyle = getComputedStyle(spaceTile, null);
-        var oldPos = parseInt(computedStyle.left);
-        var newPos = parseInt(computedStyle.left) + 50;
-        animate(
-            spaceTile,"left","px",oldPos,newPos,1000
-        );
-    }
+
+    var board = ready();
+    var s = new Solver(board);
+    var sol = s.solution();
+    var i = 1;
+    document.getElementById("next").addEventListener("click", function(){
+        i = nextMove(sol, i);
+    });
 }
-function animate(elem,style,unit,from,to,time) {
-    if( !elem) return;
-    var start = new Date().getTime(),
-        timer = setInterval(function() {
-            var step = Math.min(1,(new Date().getTime()-start)/time);
-            elem.style[style] = (from+step*(to-from))+unit;
-            if( step == 1) clearInterval(timer);
-        },25);
-    elem.style[style] = from+unit;
+function ready(){
+    var blocks = [
+    [6, 1, 0],
+    [5, 2, 4],
+    [7, 3, 8]
+    ];
+    var b = new Board(blocks);
+    b.arrangeBlocks();
+    return b;
+}
+
+function nextMove(solution, i){
+    solution[i].arrangeBlocks();
+    i++;
+    return i;
 }
