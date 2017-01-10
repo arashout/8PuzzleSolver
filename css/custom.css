@@ -11,8 +11,9 @@
     width: 98px;
     height: 98px;
 
-    float: left;
 
+    position: relative;
+    float: left;
     /*Centering font*/
     font-size: 50px;
     font-family: 'Roboto', sans-serif;
@@ -20,13 +21,12 @@
     align-items: center;
     justify-content: center;
 
-    /*Animation*/
-    transition: left 2s, top 2s;
 }
 
 #spaceTile{
     border: none;
-    opacity: 0;
+    opacity: 1;
+
 }
 .board{
     margin-top: 2vw;
