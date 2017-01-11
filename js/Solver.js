@@ -1,14 +1,14 @@
 function Solver(initialBoard){
-    var orgPQ = new MinPQ(); //Priority Queue for the original board
-    var twinPQ = new MinPQ(); //Priority Queue for twin board
+    var orgPQ = new TinyQueue(); //Priority Queue for the original board
+    var twinPQ = new TinyQueue(); //Priority Queue for twin board
     //Remember that if we find solution for TWIN board then the original is UNSOLVABLE
 
     //Initial setup
     var initialTwin = initialBoard.twin();
     var curNode = new Node(initialBoard, 0, null);
     var twinCurNode = new Node(initialTwin, 0, null);
-    orgPQ.insert(curNode);
-    twinPQ.insert(twinCurNode);
+    orgPQ.push(curNode);
+    twinPQ.push(twinCurNode);
 
     //We are going to alternate processing nodes from original priority queue
     //and the twin priority queue, which ever one arrives at the answer determines
@@ -20,8 +20,8 @@ function Solver(initialBoard){
     while(true){
 
         //Process Node closest to goal
-        curNode = orgPQ.delMin();
-        twinCurNode = twinPQ.delMin();
+        curNode = orgPQ.pop();
+        twinCurNode = twinPQ.pop();
 
         //Check if goal reached
         if(curNode.board.isGoal()){
@@ -51,7 +51,7 @@ function Solver(initialBoard){
             //Add all other boards to priority queue as nodes
             //With incremented number of moves and reference to current node
             n = new Node(b, curNode.moves + 1, curNode);
-            orgPQ.insert(n);
+            orgPQ.push(n);
         }
         
         //Same thing as before but with twin board
@@ -64,7 +64,7 @@ function Solver(initialBoard){
             //Add all other boards to priority queue as nodes
             //With incremented number of moves and reference to current node
             n = new Node(b, twinCurNode.moves + 1, twinCurNode);
-            twinPQ.insert(n);
+            twinPQ.push(n);
         }
     }
 
