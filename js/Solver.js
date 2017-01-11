@@ -18,6 +18,7 @@ function Solver(initialBoard){
     //Minimum number of moves
 
     while(true){
+
         //Process Node closest to goal
         curNode = orgPQ.delMin();
         twinCurNode = twinPQ.delMin();
