@@ -152,7 +152,13 @@ Board.prototype.toString = function (){
     }
     return stringRep;
 }
+//DRAWING METHODS
+/**
+ * This function moves the tiles to the correct position
+ */
 Board.prototype.arrangeBlocks = function(){   
+    //Classes determine position of tiles
+    //Hard-coded values...
     var posDict = {
         "00":"pos0",
         "01":"pos1",
@@ -167,13 +173,19 @@ Board.prototype.arrangeBlocks = function(){
     var tile, tileNum, key, prevClass;
     for(var i = 0; i < this.dimension; i++){
         for(var j = 0; j < this.dimension; j++){
+            //Using the tile value we can reference DOM element
             tileNum = parseInt(this._tiles[i][j]);
             tile = document.getElementById("tile" + tileNum);
+
+            //Use position of tile to create key
             key = i.toString() + j.toString();
+
+            //Remove previous position class
             prevClass = tile.classList.item(1);
             if(prevClass !== null){
                 tile.classList.remove(prevClass);
             }
+            //Add new position class according to dictionary
             tile.classList.add(posDict[key]);
         }
     }

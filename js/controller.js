@@ -37,11 +37,27 @@ function solveBoard(solObj){
 
     //solutionBoards contains the all boards between initial and goal board inclusive
     solObj.solutionBoards = s.solution();
+    //Get ready to post message for user
+    var msgBar = document.getElementById("messageBar");
+    var msgText = document.getElementById("message");
+
     if(solObj.solutionBoards === null){
-        alert("No solution exists");
+        msgBar.style.opacity = "1";
+        msgBar.style.height = "auto";
+        msgText.innerText = "No solution exists for this board try another...";
+        document.getElementById("prevBtn").style.opacity = "0";
+        document.getElementById("prevBtn").style.height = "0px";
+        document.getElementById("nextBtn").style.opacity = "0";
+        document.getElementById("nextBtn").style.height = "0px";
     }
     else{
-        alert("Found");
+        msgBar.style.opacity = "1";
+        msgBar.style.height = "auto";
+        msgText.innerText = "Shortest solution = " + (solObj.solutionBoards.length - 1) + " moves.\nPress next to step through solution";
+        document.getElementById("prevBtn").style.opacity = "1";
+        document.getElementById("prevBtn").style.height = "auto";
+        document.getElementById("nextBtn").style.opacity = "1";
+        document.getElementById("nextBtn").style.height = "auto";
     }
 }
 function nextMove(solObj){
@@ -59,9 +75,15 @@ function prevMove(solObj){
 
 }
 function randomBoard(solObj){
-    //Reset variables
+    //Reset variables and hide old buttons + messages
     solObj.i = 0;
     solObj.solutionBoards = [];
+    document.getElementById("messageBar").style.opacity = "0";
+    document.getElementById("messageBar").style.height = "0px";
+    document.getElementById("prevBtn").style.opacity = "0";
+    document.getElementById("prevBtn").style.height = "0px";
+    document.getElementById("nextBtn").style.opacity = "0";
+    document.getElementById("nextBtn").style.height = "0px";
 
     var randomBlocks = fisherYates2d(solObj.initialBoard._tiles);
     solObj.initialBoard = new Board(randomBlocks);
