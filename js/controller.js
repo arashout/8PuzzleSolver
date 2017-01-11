@@ -32,47 +32,33 @@ function ready(solObj){
     solObj.initialBoard.arrangeBlocks();
 }
 function solveBoard(solObj){
+    var msgBar = document.getElementById("messageBar");
+    var msgText = document.getElementById("message");
+    msgText.innerText = "Calculating...";
+    msgBar.style.opacity = "1";
+    msgBar.style.height = "auto";
+    
+
     //Create new solver object to find solution for given board, board get solved in constructor of Solver
-    //Measure times
-    var t0 = performance.now();
     var s = new Solver(solObj.initialBoard);
-    var t1 = performance.now();
-    var timeDiff = t1 - t0;
     //solutionBoards contains the all boards between initial and goal board inclusive
     solObj.solutionBoards = s.solution();
     //Get ready to post message for user
-    var msgBar = document.getElementById("messageBar");
-    var msgText = document.getElementById("message");
-    var timeBar = document.getElementById("timeOutput");
-    var timeText = document.getElementById("timeMessage");
+
 
     if(solObj.solutionBoards === null){
-        msgBar.style.opacity = "1";
-        msgBar.style.height = "auto";
         msgText.innerText = "No solution exists for this board try another...";
-
         document.getElementById("prevBtn").style.opacity = "0";
         document.getElementById("prevBtn").style.height = "0px";
         document.getElementById("nextBtn").style.opacity = "0";
         document.getElementById("nextBtn").style.height = "0px";
-
-        timeBar.style.opacity = "1";
-        timeBar.style.height = "auto";
-        timeText.innerText = "Took " + timeDiff + " ms to determine answer.";
     }
     else{
-        msgBar.style.opacity = "1";
-        msgBar.style.height = "auto";
         msgText.innerText = "Shortest solution = " + (solObj.solutionBoards.length - 1) + " moves.\nPress next to step through solution";
-
         document.getElementById("prevBtn").style.opacity = "1";
         document.getElementById("prevBtn").style.height = "auto";
         document.getElementById("nextBtn").style.opacity = "1";
         document.getElementById("nextBtn").style.height = "auto";
-
-        timeBar.style.opacity = "1";
-        timeBar.style.height = "auto";
-        timeText.innerText = "Took " + Number(timeDiff).toFixed(2) + " ms to determine answer.";
     }
 }
 function nextMove(solObj){
@@ -99,8 +85,6 @@ function randomBoard(solObj){
     document.getElementById("prevBtn").style.height = "0px";
     document.getElementById("nextBtn").style.opacity = "0";
     document.getElementById("nextBtn").style.height = "0px";
-    document.getElementById("timeOutput").style.opacity = "0";
-    document.getElementById("timeOutput").style.height = "0px";
 
     var randomBlocks = fisherYates2d(solObj.initialBoard._tiles);
     solObj.initialBoard = new Board(randomBlocks);
