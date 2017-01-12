@@ -38,6 +38,8 @@ function randomBoard(solObj){
     document.getElementById("messageBar").style.height = "0px";
     document.getElementById("prevBtn").style.opacity = "0";
     document.getElementById("prevBtn").style.height = "0px";
+    document.getElementById("playBtn").style.opacity = "0";
+    document.getElementById("playBtn").style.height = "0px";
     document.getElementById("nextBtn").style.opacity = "0";
     document.getElementById("nextBtn").style.height = "0px";
     document.getElementById("timeOutput").style.opacity = "0";
