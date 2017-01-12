@@ -1,3 +1,5 @@
+var goalBlocks;
+var goalBoard;
 window.onload = function() {
 
     //Create object for tracking solution boards
@@ -5,13 +7,14 @@ window.onload = function() {
     var solObj = {
         i: 0,
         initialBoard: {},
-        solutionBoards: []
+        solutionBoards: [],
+        compTime: 0
     }
 
     ready(solObj);
 
-    document.getElementById("solveBtn").addEventListener("click", function(){
-        solveBoard(solObj);
+    document.getElementById("showSol").addEventListener("click", function(){
+        showSolution(solObj);
     });
     document.getElementById("randomBtn").addEventListener("click", function(){
         randomBoard(solObj);
@@ -20,45 +23,44 @@ window.onload = function() {
     document.getElementById("prevBtn").addEventListener("click", function(){prevMove(solObj);});
 }
 function ready(solObj){
-    var basicBlocks = [
+    goalBlocks = [
     [1, 2, 3],
     [4, 5, 6],
     [7, 8, 0]
     ];
+    goalBoard = new Board(goalBlocks);
     //Initialize
     solObj.i = 0;
     solObj.solutionBoards = [];
-    solObj.initialBoard = new Board(basicBlocks);
+    solObj.initialBoard = new Board(goalBlocks);
     solObj.initialBoard.arrangeBlocks();
 }
-function solveBoard(solObj){
+function showSolution(solObj){
+    //Make the message bar pop in
     var msgBar = document.getElementById("messageBar");
     var msgText = document.getElementById("message");
-    msgText.innerText = "Calculating...";
     msgBar.style.opacity = "1";
     msgBar.style.height = "auto";
-    
 
-    //Create new solver object to find solution for given board, board get solved in constructor of Solver
-    var s = new Solver(solObj.initialBoard);
-    //solutionBoards contains the all boards between initial and goal board inclusive
-    solObj.solutionBoards = s.solution();
-    //Get ready to post message for user
-
-
+    //This portion is no longer used since random only chooses boards with solutions
+    //But I will keep for when I add user inputted boards
     if(solObj.solutionBoards === null){
         msgText.innerText = "No solution exists for this board try another...";
-        document.getElementById("prevBtn").style.opacity = "0";
-        document.getElementById("prevBtn").style.height = "0px";
-        document.getElementById("nextBtn").style.opacity = "0";
-        document.getElementById("nextBtn").style.height = "0px";
+    }
+    else if(solObj.solutionBoards.length == 0){
+        msgText.innerText = "At goal board already!";
     }
     else{
         msgText.innerText = "Shortest solution = " + (solObj.solutionBoards.length - 1) + " moves.\nPress next to step through solution";
+        //Make my previous and next buttons appear
         document.getElementById("prevBtn").style.opacity = "1";
         document.getElementById("prevBtn").style.height = "auto";
         document.getElementById("nextBtn").style.opacity = "1";
         document.getElementById("nextBtn").style.height = "auto";
+        //Make my timer appear
+        document.getElementById("timeOutput").style.opacity = "1";
+        document.getElementById("timeOutput").style.height = "auto";
+        document.getElementById("timeOutput").innerText = "Computation time = " + solObj.compTime + " ms";
     }
 }
 function nextMove(solObj){
@@ -79,16 +81,38 @@ function randomBoard(solObj){
     //Reset variables and hide old buttons + messages
     solObj.i = 0;
     solObj.solutionBoards = [];
+    //Make all buttons and messages go away
     document.getElementById("messageBar").style.opacity = "0";
     document.getElementById("messageBar").style.height = "0px";
     document.getElementById("prevBtn").style.opacity = "0";
     document.getElementById("prevBtn").style.height = "0px";
     document.getElementById("nextBtn").style.opacity = "0";
     document.getElementById("nextBtn").style.height = "0px";
+    document.getElementById("timeOutput").style.opacity = "0";
+    document.getElementById("timeOutput").style.height = "0px";
 
-    var randomBlocks = fisherYates2d(solObj.initialBoard._tiles);
-    solObj.initialBoard = new Board(randomBlocks);
-    solObj.initialBoard.arrangeBlocks();
+    var randomBlocks;
+    //This loop insures that only random boards with solutions get through!
+    while(true){
+        randomBlocks = fisherYates2d(solObj.initialBoard._tiles);
+        solObj.initialBoard = new Board(randomBlocks);
+        solveBoard(solObj);
+        if(solObj.solutionBoards !== null){
+            solObj.initialBoard.arrangeBlocks();
+            break;
+        }
+    }
+
+}
+function solveBoard(solObj){
+    //Create new solver object to find solution for given board, board get solved in constructor of Solver
+    var s = new Solver(solObj.initialBoard);
+    //solutionBoards contains the all boards between initial and goal board inclusive
+    var t0 = performance.now();
+    s = new Solver(solObj.initialBoard);
+    var t1 = performance.now();
+    solObj.solutionBoards = s.solution();
+    solObj.compTime = Number(t1 - t0).toFixed(2);
 }
 function fisherYates2d(myArray) {
     for(var i = 0; i< myArray.length; i++) {

@@ -47,7 +47,6 @@ function Solver(initialBoard){
             if(curNode.prev !== null && curNode.prev.board.equals(b)){continue;}
             //Ignore boards that are same as initial boards
             if(initialBoard.equals(b)){continue;}
-
             //Add all other boards to priority queue as nodes
             //With incremented number of moves and reference to current node
             n = new Node(b, curNode.moves + 1, curNode);
