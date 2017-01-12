@@ -17,5 +17,13 @@ To solve the puzzle, we need a way to determine how close we are the goal board,
 ### Scoring Function
 The final scoring function used in the A* search combines the sum of number of moves currently made to reach the board and the manhattan distances of the tiles in the wrong place on the current board.
 ### Nodes
-A node is an object I have defined that contains a board, the manhattan distance of the board, the number of moves to reach the board and some utility functions for comparing them.
+A node is an object I have defined that contains a board, the manhattan distance of the board, the number of moves to reach the board and some utility functions for comparing them. Furthermore, it references the previous Node that it is a neighbor of (So that you can backtrack the solution)
 ### Basic Steps for the Solver
+1. Delete + Return the Node with the lowest score on the MinPQ
+2. Check if the board on the node is goal board - If yes then stop
+3. Insert neighbors of the current board to MinPQ
+   * Note: When the priority compares the nodes during insertions the nodes are also processed (Manhattan Distance and scoring function determined)
+4. Repeat!
+
+### Critical Optimizations
+If you have board B1 and it has neighbors B2, B3, B4 one of the neighbors is going to be the board B1. This is a useless result and A\* will end up exploring this node. Thus when determing the nodes to add to the MinPQ we make sure to remove this neighbor!
