@@ -4,7 +4,12 @@ h1{
 button{
     font-size: 20px;
 }
-
+.links-to-me{
+    font-size: 20px;
+}
+a{
+    text-decoration: none;
+}
 #timeOutput{
     transition: opacity .5s ease-out;
     opacity: 0; 
