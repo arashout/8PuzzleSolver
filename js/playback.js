@@ -3,7 +3,10 @@ var play = false;
 var nextMoveTimer;
 //Pick any tile to determine how long the setTimeout needs to wait for animations to finish
 var tileElement =  document.getElementsByClassName("tile")[0];
-var cssTransitionTime = tileElement.style.transitionDuration;
+var cssTransitionTime = window.getComputedStyle(tileElement,null).getPropertyValue("transition-duration");
+//Has "s" seconds at the end need to truncate and convert to milliseconds
+cssTransitionTime = cssTransitionTime.slice(0,-1);
+cssTransitionTime = cssTransitionTime * 1000;
 function nextMove(solObj){
     //Ensure we are not at the end of the solution
     if(solObj.i !== solObj.solutionBoards.length - 1){
@@ -14,7 +17,7 @@ function nextMove(solObj){
     else{return;}
     //If variable turn on in playMoves then continue to call nextMove
     if(play){
-        nextMoveTimer = setTimeout(function() {nextMove(solObj);}, 500);
+        nextMoveTimer = setTimeout(function() {nextMove(solObj);}, cssTransitionTime);
     }
 }
 function playMoves(solObj){
