@@ -53,6 +53,9 @@ function randomBoard(solObj){
         solveBoard(solObj);
         if(solObj.solutionBoards !== null){
             solObj.initialBoard.arrangeBlocks();
+            //Make the show solution button appear
+            document.getElementById("showSol").style.opacity = "1";
+            document.getElementById("showSol").style.height = "auto";
             break;
         }
     }
