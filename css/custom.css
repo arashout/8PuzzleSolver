@@ -11,6 +11,7 @@ a{
     text-decoration: none;
 }
 #timeOutput{
+    -webkit-transition: opacity .5s ease-out;
     transition: opacity .5s ease-out;
     opacity: 0; 
     height: 0;
@@ -18,6 +19,7 @@ a{
     color: grey;
 }
 #messageBar{
+    -webkit-transition: opacity .5s ease-out;
     transition: opacity .5s ease-out;
     opacity: 0; 
     height: 0;
@@ -35,23 +37,27 @@ a{
     height: 300px;
 }
 #showSol{
+    -webkit-transition: opacity .5s ease-out;
     transition: opacity .5s ease-out;
     opacity: 0; 
     height: 0;
 }
 #prevBtn{
+    -webkit-transition: opacity .5s ease-out;
     transition: opacity .5s ease-out;
     opacity: 0; 
     height: 0;
     overflow: hidden;
 }
 #playBtn{
+    -webkit-transition: opacity .5s ease-out;
     transition: opacity .5s ease-out;
     opacity: 0; 
     height: 0;
     overflow: hidden;
 }
 #nextBtn{
+    -webkit-transition: opacity .5s ease-out;
     transition: opacity .5s ease-out;
     opacity: 0; 
     height: 0;
@@ -72,6 +78,7 @@ a{
     font-size: 50px;
     font-family: 'Roboto', sans-serif;
     /*For sliding animations*/
+    -webkit-transition: opacity .5s ease-out;
     transition: 0.5s;
 
     /*Each tile has pre-determined place on the board*/
