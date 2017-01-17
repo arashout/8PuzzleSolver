@@ -36,12 +36,6 @@ a{
     width: 300px;
     height: 300px;
 }
-#showSol{
-    -webkit-transition: opacity .5s ease-out;
-    transition: opacity .5s ease-out;
-    opacity: 0; 
-    height: 0;
-}
 #prevBtn{
     -webkit-transition: opacity .5s ease-out;
     transition: opacity .5s ease-out;
