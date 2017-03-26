@@ -28,7 +28,13 @@ function showSolution(solObj){
         document.getElementById("timeOutput").innerText = "Computation time = " + solObj.compTime + " ms";
     }
 }
-
+function instructions(){
+    var msgBar = document.getElementById("messageBar");
+    var msgText = document.getElementById("message");
+    msgBar.style.opacity = "1";
+    msgBar.style.height = "auto";
+    msgText.innerText = "Press RANDOM BOARD then GET SOLUTON to begin!"
+}
 function randomBoard(solObj){
     //Reset variables and hide old buttons + messages
     solObj.i = 0;

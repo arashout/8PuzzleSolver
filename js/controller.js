@@ -12,7 +12,7 @@ window.onload = function() {
     }
 
     ready(solObj);
-
+    instructions();
     document.getElementById("showSol").addEventListener("click", function(){showSolution(solObj);});
     document.getElementById("randomBtn").addEventListener("click", function(){randomBoard(solObj);});
     document.getElementById("nextBtn").addEventListener("click", function(){nextMove(solObj, false);});
